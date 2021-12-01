@@ -1,2 +1,2 @@
-# adventofcode_2021
+# Advent of code 2021
 My attempts to solve https://adventofcode.com/2021/
