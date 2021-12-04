@@ -1,4 +1,5 @@
 #! /usr/bin/env python3
+from collections import Counter
 
 def count_bins(binary_data):
     bin_counter = list()
@@ -48,5 +49,6 @@ binary_list = open(input_data, "r").readlines()
 
 binary_oxygen = eliminate_binaries(binary_list, least_common=False)
 binary_co2 = eliminate_binaries(binary_list, least_common=True)
-
+print(binary_oxygen)
+print(binary_co2)
 print(int(binary_oxygen[0], 2) * int(binary_co2[0], 2))

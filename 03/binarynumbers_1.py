@@ -27,3 +27,6 @@ with open(input_data, "r") as f:
 
 gamma, epsilon = translate_bin_counter(bin_counter)
 print(int(gamma, 2) * int(epsilon, 2))
+
+
+
