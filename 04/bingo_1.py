@@ -12,36 +12,27 @@ board = list()
 
 
 def check_board(board, drawed):
-    bingo = False
     rows, columns = board.copy(), np.transpose(board.copy())
-
     drawed = set(drawed)
-
     for i in range(len(rows)):
         if len(set(rows[i]).intersection(drawed)) == 5 or len(set(columns[i]).intersection(drawed)) == 5:
-            bingo = True
-
-    return bingo
+            return True
+    return False
 
 
 def play_bingo(boards, future_numbers):
     winning_order = list()
-
     while len(boards) > 0:
         for i in future_numbers:
             drawed.append(i)
-
             to_remove = list()
-
             for j in range(len(boards)):
-                board = boards[j]
-                bingo = check_board(board, drawed)
+                board_ = boards[j]
+                bingo = check_board(board_, drawed)
                 if bingo:
-                    winning_order.append((board.copy(), drawed.copy()))
+                    winning_order.append((board_.copy(), drawed.copy()))
                     to_remove.append(j)
-
             boards = np.delete(boards, to_remove, 0)
-
     return winning_order
 
 
@@ -49,10 +40,7 @@ def score_winner_board(board, drawed):
     unmarked = list()
     for row in board:
         unmarked += list(set(row).difference(drawed))
-
-    print(f"Final bingo number: {drawed[-1]}")
-    print(f"Unmarked: {unmarked}")
-    print(f"SCORE: {sum(unmarked) * drawed[-1]}")
+    return sum(unmarked) * drawed[-1]
 
 
 if __name__ == "__main__":
@@ -62,20 +50,15 @@ if __name__ == "__main__":
                 if len(board) != 0:
                     boards.append(board.copy())
                     board.clear()
-                else:
-                    pass
             else:
                 board.append(list(map(int, line.split())))
 
     boards = np.array(boards)
-    boards = np.delete(boards, [1,2,3], 0)
     winning_order = play_bingo(boards, future_draws)
 
-    print("PART 1:")
-    score_winner_board(winning_order[0][0], winning_order[0][1])
+    print(f"PART 1: {score_winner_board(winning_order[0][0], winning_order[0][1])}")
+    print(f"PART 2: {score_winner_board(winning_order[-1][0], winning_order[-1][1])}")
 
-    print("PART 2:")
-    score_winner_board(winning_order[-1][0], winning_order[-1][1])
 
 
 
