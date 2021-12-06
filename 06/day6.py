@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 import numpy as np
+from collections import defaultdict
 
 
 class LanternFish:
@@ -74,31 +75,21 @@ class Fishes():
 
 
 def init_counter(fishes):
-    fish_counter = dict()
+    fish_counter = defaultdict(lambda: 0)
     for fish in fishes:
-        if fish not in fish_counter.keys():
-            fish_counter[fish] = 0
         fish_counter[fish] += 1
     return fish_counter
 
 
 def sim_growth_simple(days, fish_counter):
     for day in range(1, days + 1):
-        newbies = dict()
+        newbies = defaultdict(lambda: 0)
         for count_grup in fish_counter.keys():
-            if count_grup not in newbies:
-                newbies[count_grup] = 0
             group_size = fish_counter[count_grup]
             if count_grup == 0:
-                if 6 not in newbies:
-                    newbies[6] = 0
-                if 8 not in newbies:
-                    newbies[8] = 0
                 newbies[6] += group_size
                 newbies[8] += group_size
             else:
-                if count_grup - 1 not in newbies:
-                    newbies[count_grup - 1] = 0
                 newbies[count_grup - 1] += group_size
 
         fish_counter = newbies
@@ -116,10 +107,10 @@ if __name__ == "__main__":
     print(f"PART1: There are {simfish.run_simulaiton(80)} fishes after 80 days!")
 
     # OK, my class approach is waaaay to slow - need to do something easier:
-
+    # NOTE to self --- go for the easy first if possible. This was such a waste of time
+    # with the classes
     fc = init_counter(init_fishes)
-    part2 = sim_growth_simple(days=256, fish_counter=fc)
-    print(part2)
+    print(f"PART2: There are {sim_growth_simple(days=256, fish_counter=fc)} fishes after 256 days!")
 
 
 
