@@ -12,6 +12,8 @@ def part2_fuel(c, pos):
 
 def calc_fuel(part1=True):
     c = int(np.average(crab_pos) / 2)
+    print(np.median(crab_pos))
+    print(c)
     if part1:
         fuel_min = part1_fuel(c, crab_pos)
     else:
@@ -28,6 +30,7 @@ def calc_fuel(part1=True):
         else:
             c -= 1
             fuel_increased = True
+    print(c)
     return fuel_min
 
 
